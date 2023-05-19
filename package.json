@@ -1,0 +1,25 @@
+{
+  "name": "@zhaoyls/zyls-decorators",
+  "version": "2.0.1",
+  "description": "测试项目装饰器及ts5.0特性，发布包！",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon -e ts,tsx --exec ts-node ./src/index.ts",
+    "serve2": "nodemon --ext ts,tsx --exec ts-node ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "zhaoyls",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaoyls/zylsTsDecorators.git"
+  }
+}
