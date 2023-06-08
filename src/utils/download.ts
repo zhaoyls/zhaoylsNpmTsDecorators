@@ -1,5 +1,6 @@
 import axios from "axios";
 // import { Message } from 'element-plus'
+// import { Message } from 'view-design'
 
 /**
  * Downloads an xls file using an anchor tag.
@@ -40,6 +41,7 @@ export const commDownload = async (
     });
 };
 
+
 /**
  * Opens a new browser window with the given URL and features.
  * @author zhaoyls
@@ -62,6 +64,7 @@ export const comWindowOpen = async (
     console.log("Failed to open window");
   }
 };
+
 
 /**
  * Get the filename from the Content-Disposition header of a response object.
