@@ -1,55 +1,68 @@
 // import 'reflect-metadata'
 interface FormFieldConfig {
   name: string;
+  label: string,
   type: string;
   isRequired: boolean;
   isHidden: boolean;
+  list?: [] // select
+  [key: string]: any;
 }
 
 // 唯一的键值，用于存储一个类的元数据。
 const FORM_FIELDS_METADATA_KEY = Symbol("formFields");
 function FormField(config: FormFieldConfig) {
   /**
-   * [nodemon] starting `ts-node ./src/index.ts`
-    { name: 'username', type: 'text' }
-    { name: 'password', type: 'password' }
-    { name: 'email', type: 'email' }
+    * console.log(config);
+    * { name: 'username', type: 'text' }
+    * { name: 'password', type: 'password' }
+    * ...
    */
-  // console.log(config);
   return function (target: Object, propertyKey: string | symbol) {
     // 获取目标类的元数据数组
     // target.prototype[FORM_FIELDS_METADATA_KEY];
-    const fields = Reflect.getMetadata(FORM_FIELDS_METADATA_KEY, target) || [];
+    const fieldList = Reflect.getMetadata(FORM_FIELDS_METADATA_KEY, target) || [];
     // 重新附加到目标类上。
-    fields.push({ ...config, name: propertyKey });
-       // target.prototype[FORM_FIELDS_METADATA_KEY] = fields;
-    Reflect.defineMetadata(FORM_FIELDS_METADATA_KEY, fields, target);
+    fieldList.push({ ...config, name: propertyKey });
+       // target.prototype[FORM_FIELDS_METADATA_KEY] = fieldList;
+    Reflect.defineMetadata(FORM_FIELDS_METADATA_KEY, fieldList, target);
   };
 }
 
 class FormModel {
-  @FormField({ name: "username", type: "text", isRequired: true, isHidden: false })
+  @FormField({ name: "username", label: '用户名', type: "text", isRequired: true, isHidden: false })
   private username: string = "";
 
-  @FormField({ name: "password", type: "password", isRequired: true,  isHidden: false })
+  @FormField({ name: "password", label: '密码', type: "password", isRequired: true,  isHidden: false })
   private password: string = "";
 
-  @FormField({ name: "checkCode", type: "inputText", isRequired: true,  isHidden: false })
+  @FormField({ name: "checkCode",label: '验证码', type: "inputText", isRequired: true,  isHidden: false })
   private checkCode: string = "";
 
   public constructor() {
     this.resetField()
+  }
+   /**
+   * @FormField 每一项组成的列表
+   * @returns {FormFieldConfig[]}
+   */
+   public getFormConfig(): FormFieldConfig[] {
+    const fieldList = Reflect.getMetadata(
+      FORM_FIELDS_METADATA_KEY,
+      this
+    ) as FormFieldConfig[];
+    return fieldList;
   }
 
   /**
    * 使用反射将表单数据重置
    */
   public resetField() {
-    const fields = Reflect.getMetadata(
+    const fieldList = Reflect.getMetadata(
       FORM_FIELDS_METADATA_KEY,
       this
     ) as FormFieldConfig[];
-    for (const field of fields) {
+    for (const field of fieldList) {
       this[field.name] = "";
     }
   }
@@ -58,11 +71,11 @@ class FormModel {
    * @param formData 
    */
   public saveFormData(formData: Record<string, any>) {
-    const fields = Reflect.getMetadata(
+    const fieldList = Reflect.getMetadata(
       FORM_FIELDS_METADATA_KEY,
       this
     ) as FormFieldConfig[];
-    for (const field of fields) {
+    for (const field of fieldList) {
       this[field.name] = formData[field.name] || "";
     }
   }
@@ -73,11 +86,11 @@ class FormModel {
    */
   public getFormData(): Record<string, any> {
     const formData: Record<string, any> = {};
-    const fields = Reflect.getMetadata(
+    const fieldList = Reflect.getMetadata(
       FORM_FIELDS_METADATA_KEY,
       this
     ) as FormFieldConfig[];
-    for (const field of fields) {
+    for (const field of fieldList) {
       formData[field.name] = this[field.name];
     }
     return formData;
@@ -90,11 +103,11 @@ class FormModel {
    * @returns {boolean}
    */
   public checkFormData(): boolean {
-    const fields = Reflect.getMetadata(
+    const fieldList = Reflect.getMetadata(
       FORM_FIELDS_METADATA_KEY,
       this
     ) as FormFieldConfig[];
-    for (const field of fields) {
+    for (const field of fieldList) {
       const value = this[field.name];
       if (!value && field.isRequired && !field.isHidden) {
         console.log(field.name + value + "不能为空");
@@ -104,17 +117,7 @@ class FormModel {
     return true;
   }
 
-  /**
-   * @FormField 每一项组成的列表
-   * @returns {FormFieldConfig[]}
-   */
-  public getFormConfig(): FormFieldConfig[] {
-    const fields = Reflect.getMetadata(
-      FORM_FIELDS_METADATA_KEY,
-      this
-    ) as FormFieldConfig[];
-    return fields;
-  }
+  // 其他实现...
 }
 
 // 使用示例
@@ -122,8 +125,9 @@ const form = new FormModel();
 console.log("form.getFormData()", form.getFormData()); 
 
 form.saveFormData({ username: "john", password: "", checkCode: "7777" });
-console.log("getFormConfig", form.getFormConfig()); // 拿到配置项去vfor数据
 console.log("saveFormData", form.getFormData());
+
+console.log("getFormConfig", form.getFormConfig()); // 拿到配置项去vfor数据
 
 console.log("checkFormData", form.checkFormData());
 
