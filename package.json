@@ -12,6 +12,7 @@
   "author": "zhaoyls",
   "license": "ISC",
   "dependencies": {
+    "reflect-metadata": "^0.1.13",
     "typescript": "^5.0.2"
   },
   "devDependencies": {
