@@ -119,7 +119,7 @@ class FormModel {
 
 // 使用示例
 const form = new FormModel();
-console.log("form.getFormData()", form.getFormData());
+console.log("form.getFormData()", form.getFormData()); 
 
 form.saveFormData({ username: "john", password: "", checkCode: "7777" });
 console.log("getFormConfig", form.getFormConfig()); // 拿到配置项去vfor数据
