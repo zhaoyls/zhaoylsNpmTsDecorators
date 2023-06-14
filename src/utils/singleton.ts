@@ -16,3 +16,5 @@ export default function singletonProx<T extends new (...args: any[]) => any>(
     },
   });
 }
+
+//
