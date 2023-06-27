@@ -1,5 +1,5 @@
 import "reflect-metadata";
 import * as form from "./form";
+import * as utils from "./utils/";
 
-
-export const FormModel = new form.FormModel();
+console.log(utils);  
