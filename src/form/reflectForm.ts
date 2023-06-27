@@ -1,35 +1,48 @@
-// import 'reflect-metadata'
+import 'reflect-metadata'
+
+/**
+ * 表单字段配置类型，进行约束。
+ */
 interface FormFieldConfig {
   name: string;
+  value?: string,
   label: string,
   type: string;
   isRequired: boolean;
   isHidden: boolean;
-  list?: [] // select
+  list?: unknown[]
   [key: string]: any;
 }
 
-// 唯一的键值，用于存储一个类的元数据。
+/**
+ *用于存储一个类的元数据。
+ */
 const FORM_FIELDS_METADATA_KEY = Symbol("formFields");
-function FormField(config: FormFieldConfig) {
-  /**
-    * console.log(config);
-    * { name: 'username', type: 'text' }
-    * { name: 'password', type: 'password' }
-    * ...
-   */
+
+/**
+ * 表单字段装饰器
+ * @param config 字段配置
+ * @returns {PropertyDecorator}  
+ */
+function FormField(config: FormFieldConfig): PropertyDecorator {
   return function (target: Object, propertyKey: string | symbol) {
-    // 获取目标类的元数据数组
+    // console.log(config);
+    // 1、获取目标类的元数据数组
     // target.prototype[FORM_FIELDS_METADATA_KEY];
     const fieldList = Reflect.getMetadata(FORM_FIELDS_METADATA_KEY, target) || [];
-    // 重新附加到目标类上。
-    fieldList.push({ ...config, name: propertyKey });
-       // target.prototype[FORM_FIELDS_METADATA_KEY] = fieldList;
+    // 2、重新附加到目标类上。
+    fieldList.push({ ...config, name: propertyKey, value: propertyKey });
+    // target.prototype[FORM_FIELDS_METADATA_KEY] = fieldList;
     Reflect.defineMetadata(FORM_FIELDS_METADATA_KEY, fieldList, target);
   };
 }
 
-class FormModel {
+/**
+ * 表单模型类，利用反射获取表单数据以及配置项
+ * 整合表单数据，表单配置项、业务逻辑。
+ * @constructor 
+ */
+export default class FormModel {
   @FormField({ name: "username", label: '用户名', type: "text", isRequired: true, isHidden: false })
   private username: string = "";
 
@@ -39,9 +52,8 @@ class FormModel {
   @FormField({ name: "checkCode",label: '验证码', type: "inputText", isRequired: true,  isHidden: false })
   private checkCode: string = "";
 
-  public constructor() {
-    this.resetField()
-  }
+  public constructor() {}
+
    /**
    * @FormField 每一项组成的列表
    * @returns {FormFieldConfig[]}
@@ -68,9 +80,9 @@ class FormModel {
   }
   /**
    * 使用反射将表单数据保存到对象中
-   * @param formData 
+   * @param formData 表单数据
    */
-  public saveFormData(formData: Record<string, any>) {
+  public saveFormData(formData: Record<FormFieldConfig['name'], any>) {
     const fieldList = Reflect.getMetadata(
       FORM_FIELDS_METADATA_KEY,
       this
@@ -82,9 +94,9 @@ class FormModel {
 
   /**
    * 使用反射将表单数据从对象中提取出来
-   * @returns {formData}
+   *  @returns {Record<string, any>} 
    */
-  public getFormData(): Record<string, any> {
+  public getFormData(): Record<FormFieldConfig['name'], any> {
     const formData: Record<string, any> = {};
     const fieldList = Reflect.getMetadata(
       FORM_FIELDS_METADATA_KEY,
@@ -98,11 +110,11 @@ class FormModel {
 
   /**
    * 检查对应的字段是否为空
-   * 更多校验可使用 'class-validator' 注解库，或者自定义装饰器，反射区处理。
+   * 更多校验可使用 'class-validator'注解库，或自定义装饰器，反射处理。
    * 验证参考于掘金： https://juejin.cn/post/7076701579222450190
    * @returns {boolean}
    */
-  public checkFormData(): boolean {
+  public checkFormData() { 
     const fieldList = Reflect.getMetadata(
       FORM_FIELDS_METADATA_KEY,
       this
@@ -110,7 +122,7 @@ class FormModel {
     for (const field of fieldList) {
       const value = this[field.name];
       if (!value && field.isRequired && !field.isHidden) {
-        console.log(field.name + value + "不能为空");
+        console.log(field.name + value + "：" + "不能为空");
         return false;
       }
     }
@@ -120,15 +132,13 @@ class FormModel {
   // 其他实现...
 }
 
-// 使用示例
-const form = new FormModel();
-console.log("form.getFormData()", form.getFormData()); 
+// const form = new FormModel();
+// console.log("form.getFormData()", form.getFormData()); 
 
-form.saveFormData({ username: "john", password: "", checkCode: "7777" });
-console.log("saveFormData", form.getFormData());
+// form.saveFormData({ username: "lin", password: "666", checkCode: "777" });
 
-console.log("getFormConfig", form.getFormConfig()); // 拿到配置项去vfor数据
+// console.log("saveFormData", form.getFormData());
 
-console.log("checkFormData", form.checkFormData());
+// console.log("getFormConfig", form.getFormConfig()); 
 
-export default FormModel;
+// console.log("checkFormData", form.checkFormData());
