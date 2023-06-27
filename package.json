@@ -1,7 +1,7 @@
 {
   "name": "@zhaoyls/zyls-decorators",
-  "version": "2.0.3",
-  "description": "测试装饰器、TS 5.0 特性、发布包！",
+  "version": "2.0.5",
+  "description": "测试装饰器、typescript5.0 特性、发布包！",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
