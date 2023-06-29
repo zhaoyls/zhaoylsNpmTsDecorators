@@ -1,4 +1,4 @@
-import { getCallerFileInfo } from "../utils/lin-error";
+import { getCallerFileInfo } from "../utils/linError";
 
 /**
   * 装饰器函数，用于装饰一个类。

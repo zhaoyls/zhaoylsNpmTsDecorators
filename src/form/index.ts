@@ -1,5 +1,5 @@
-import FormModel from './reflectForm';
+import * as form from './reflectForm';
 
 export {
-    FormModel,
+    form,
 }
