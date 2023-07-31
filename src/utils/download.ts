@@ -27,6 +27,8 @@ export const commDownload = async (
     responseType: "blob",
   })
     .then((res) => {
+      // type = "application/octet-stream";
+      // type = "application/vnd.ms-excel";
       const blob = new Blob([res.data], { type: "application/vnd.ms-excel" });
       const url = window.URL || window.webkitURL;
       const downloadHref = url.createObjectURL(blob);
