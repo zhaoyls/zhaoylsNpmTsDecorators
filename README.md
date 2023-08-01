@@ -1,5 +1,5 @@
-# @decorators
-测试项目装饰器及ts5.0特性，发布包！
+# npmTsDecorators
+npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。
 
 ## 初始化项目
 See: [pnpm](https://pnpm.io/zh/pnpm-cli)
