@@ -1,6 +1,6 @@
 {
   "name": "@zhaoyls/zyls-decorators",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "测试发布包、 typescript5.0 特性等。后续 TS 装饰器学习代码以及工具封装都会存在这里。",
   "main": "index.ts",
   "scripts": {
