@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 // import { Message } from 'element-plus'
 // import { Message } from 'view-design'
 
@@ -13,34 +13,64 @@ import axios from "axios";
  * @param {string} exportName - Optional name to use for downloaded file.
  */
 export const commDownload = async (
-  method = "get",
+  method = "GET",  // get 自己拼接参数，原生的话，大多数情况也只用的到 get 请求。
   url = "/api/download",
   data = {},
   params = {},
-  exportName = "title"
+  exportName = "下载文件",
+  fileType = "vnd.ms-excel", 
+  responseType: "blob",
 ) => {
-  await axios({
-    method,
-    url,
-    data,
-    params,
-    responseType: "blob",
-  })
-    .then((res) => {
-      // type = "application/octet-stream";
-      // type = "application/vnd.ms-excel";
-      const blob = new Blob([res.data], { type: "application/vnd.ms-excel" });
+  const xhr = new XMLHttpRequest();
+  xhr.timeout = 5 * 60 * 1000; 
+  xhr.responseType = responseType
+
+  xhr.open(method, url, true); 
+  // POST
+  // var data = 'param1=value1&param2=value2'; 
+  // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = function (e: ProgressEvent<EventTarget>) {
+    if (this.status === 200) {
+      const blob = new Blob([this.response], { type: `application/${fileType}` });
+
       const url = window.URL || window.webkitURL;
       const downloadHref = url.createObjectURL(blob);
       const downloadLink = document.createElement("a");
       downloadLink.href = downloadHref;
-      const filename = exportName ? exportName : getCDFileName(res) || "";
+
+      const filename = exportName ? exportName : getCDFileName(this) || "";
       downloadLink.download = filename + ".xlsx";
+
       downloadLink.click();
-    })
-    .catch((e) => {
-      console.log(e.message.toString());
-    });
+
+      window.URL.revokeObjectURL(downloadHref);
+    }
+  }
+  xhr.send();
+   // xhr.send(data);
+  xhr.ontimeout = function(){}
+   
+  // 依赖第三方库。
+  // await axios({
+  //   method,
+  //   url,
+  //   data,
+  //   params,
+  //   responseType: "blob",
+  // })
+  //   .then((res) => {
+  //     const blob = new Blob([res.data], { type: "application/vnd.ms-excel" });
+  //     const url = window.URL || window.webkitURL;
+  //     const downloadHref = url.createObjectURL(blob);
+  //     const downloadLink = document.createElement("a");
+  //     downloadLink.href = downloadHref;
+  //     const filename = exportName ? exportName : getCDFileName(this) || "";
+  //     downloadLink.download = filename + ".xlsx";
+  //     downloadLink.click();
+  //   })
+  //   .catch((e) => {
+  //     console.log(e.message.toString());
+  //   });
 };
 
 
