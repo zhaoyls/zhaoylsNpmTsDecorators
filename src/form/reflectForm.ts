@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 /**
  * @type 表单字段对应配置项类型。
+ * @author zhaoyls
  */
 interface FormFieldConfig {
   name: string;
