@@ -62,7 +62,7 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
         const downloadHref = url.createObjectURL(blob);
         const downloadLink = document.createElement("a");
         downloadLink.href = downloadHref;
-        downloadLink.download = fileName ? fileName : getCDFileName(res) || '';
+        downloadLink.download = fileName ? fileName : getCDFileName(res) || '未知文件';
         downloadLink.click();
         window.URL.revokeObjectURL(downloadHref);
         resolve(res.status);
