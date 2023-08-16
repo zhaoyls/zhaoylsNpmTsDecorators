@@ -14,7 +14,7 @@ export const comNewWindow = async (
   url = "",
   title: "title",
   target: "_blank",
-  features: [/*'width=888', 'height=666', 'scrollbars=yes' */]
+  features: [/*'width=888', 'height=666', 'scrollbars=yes', ' toolbar=yes', 'resizable=no','location=no', 'status=no' */]
 ) => {
   var popupWin = window.open(url, target, features.join(";"));
   if (popupWin) {
@@ -39,13 +39,14 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
     const xhr = new XMLHttpRequest();
     xhr.timeout = 5 * 60 * 1000;
 
-    // 整理参数
+    // 整理参数仅兼容浏览器
     const searchParams = new URLSearchParams(params);
     url = url + "?" + searchParams.toString();
+    // 兼容服务端和浏览器端
     // url = url + JSON.stringify(params)
 
     xhr.open("GET", url, true);
-    // POST
+    // POST 请求这里用不上
     // var data = 'param1=value1&param2=value2';
     // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader("refresh-token", localStorage.getItem("token") || "");
@@ -71,7 +72,7 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
       }
     };
 
-    // 发送请求 （如果为 post 请求，参数体放这里）
+    // 发送请求 （如果是 post 请求，参数体放这里）
     xhr.send();
 
     // 监听请求超时事件
@@ -103,7 +104,7 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
 
 /**
  * 获取文件名字
- * @param {XMLHttpRequest | Response | AxiosResponse} res - 响应对象 未兼容 Fetch。
+ * @param {XMLHttpRequest | Response | AxiosResponse} res - 响应对象
  * @param {string} [coding="ASCII"] - 编码方式，默认为 ASCII
  * @returns {string} - 文件名字，会带有后缀，无需手动拼接。
  */
