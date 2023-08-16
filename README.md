@@ -32,3 +32,9 @@ See: [npm](https://www.npmjs.com/)
 $ npm / pnpm init --scope=itsme -y
 $ npm / pnpm publish --access=public
 ```
+
+### 新增打印工具 chalk progress
+```bash
+pnpm add chalk -D 
+pnpm add progress -D 
+```

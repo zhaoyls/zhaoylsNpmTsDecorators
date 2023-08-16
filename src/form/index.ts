@@ -1,4 +1,4 @@
-import * as form from './reflectForm';
+import * as form from './reflectForm.js';
 
 export {
     form,

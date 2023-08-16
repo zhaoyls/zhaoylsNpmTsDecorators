@@ -46,9 +46,10 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
     // url = url + JSON.stringify(params)
 
     xhr.open("GET", url, true);
-    // POST 请求这里用不上
-    // var data = 'param1=value1&param2=value2';
+    // xhr.open("POST", url, true);
+    // let data = 'param1=value1&param2=value2';
     // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
     xhr.setRequestHeader("refresh-token", localStorage.getItem("token") || "");
     xhr.responseType = "blob";
 
