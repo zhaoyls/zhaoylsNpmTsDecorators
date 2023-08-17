@@ -1,4 +1,4 @@
-import { getCallerFileInfo } from "../utils/linError.js";
+import { getCallerFileInfo } from "../utils/stackError.js";
 
 /**
   * 装饰器函数，用于装饰一个类 声明： declare type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
