@@ -44,6 +44,16 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
     url = url + "?" + searchParams.toString();
     // 兼容服务端和浏览器端
     // url = url + JSON.stringify(params)
+    function stringify(params) {
+      return Object.keys(params)
+        .map(key => {
+          const value = params[key];
+          const encodedKey = encodeURIComponent(key);
+          const encodedValue = encodeURIComponent(value);
+          return `${encodedKey}=${encodedValue}`;
+        })
+        .join('&');
+    }
 
     xhr.open("GET", url, true);
     // xhr.open("POST", url, true);
