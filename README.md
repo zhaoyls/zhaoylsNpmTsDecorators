@@ -1,5 +1,15 @@
 # npmTsDecorators
 npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。
+...
+
+## 依赖工具 ni
+```sh
+$ npm i @antfu/ni -g
+$ ni --frozen
+$ nr serve 
+$ nr build
+...
+```
 
 ## 初始化项目
 See: [pnpm](https://pnpm.io/zh/pnpm-cli)

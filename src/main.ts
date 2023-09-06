@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import chalk from "chalk";
+import chalk from "chalk"
 import * as utils from "./utils/index.js";
 import * as form from "./form/index.js";
 import * as decorator from "./decorator/index.js";
