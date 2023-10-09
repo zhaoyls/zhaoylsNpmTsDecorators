@@ -17,9 +17,7 @@ See: [pnpm](https://pnpm.io/zh/pnpm-cli)
 ```bash
 $  npm / pnpm init -y         # package.json
 $  npm / pnpm add typescript  # dependencies
-$  tsc --init                 # tsconfig.json
-$  npm / pnpm add ts-node -Dw  # devDependencies
-$  npm / pnpm add nodemon -Dw  # devDependencies
+$  npm / pnpm add typescript -D # devDependencies
 ```
 
 ## 发布 npm 包流程
@@ -77,25 +75,25 @@ $ pnpm add nodemon -Dw  # devDependencies
 $ npx tsc --init  # create tsconfig,json
 ```
 
-> - 其中参数D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项）
-
-- 单独给 packages/core 安装指定依赖 pnpm add chalk --filter @zyl/core
+> 其中参数D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项），另外如果需要单独给 packages/core 安装指定依赖使用 pnpm add chalk --filter @zyl/core。
 
 ## eslint + prettier + husky + commitlint
 
 ```bash
-$ pnpm i eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin -Dw
+$ pnpm i eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin -Dw  # 去配置脚本命令和检查的规则。
 
-$ pnpm i prettier eslint-config-prettier eslint-plugin-prettier -Dw #   "format": "prettier --write --cache ." .表示当前目录所有文件， cache 只有修改过的文件或新添加的文件会被重新格式化。
+$ pnpm i prettier eslint-config-prettier eslint-plugin-prettier -Dw # 去配置脚本命令  "format": "prettier --write --cache ." .表示当前目录所有文件， cache 只有修改过的文件或新添加的文件会被重新格式化。
+
 $ pnpm i husky lint-staged -Dw #  git hooks 协助运行 eslint 和 prettier 进行校验。
-# 配置脚本命令后（具体见 package.json prepare 和 lint-staged）， 初始化 husky。
+# 随后配置脚本命令（具体见 package.json prepare 和 lint-staged）, 如下初始化 husky。
 $ npx husky install
 $ npx husky add .husky/pre-commit "npx --no-install lint-staged"
 
 # 下载创建 commitlint.config.ts 后运行第二个命令用于设置 Husky 的 commit-msg 钩子的命令。
 $ pnpm i @commitlint/config-conventional @commitlint/cli  -Dw
 $ npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
-# 验证：
-$ git add . && git commit -m "验证 husky commitlint"   
-```
 
+# 验证：
+$ git add . && git commit -m "验证 husky commitlint"
+$ git push
+```
