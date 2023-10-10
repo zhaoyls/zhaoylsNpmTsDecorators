@@ -1,4 +1,5 @@
 # npmTsDecorators
+
 npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。
 
 ## 依赖工具 ni
@@ -77,7 +78,7 @@ $ npx tsc --init  # create tsconfig,json
 
 > 其中参数D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项），另外如果需要单独给 packages/core 安装指定依赖使用 pnpm add chalk --filter @zyl/core。
 
-## eslint + prettier + husky + commitlint
+2. eslint + prettier + husky + commitlint
 
 ```bash
 $ pnpm i eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin -Dw  # 去配置脚本命令和检查的规则。
@@ -96,4 +97,40 @@ $ npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 # 验证：
 $ git add . && git commit -m "验证 husky commitlint"
 $ git push
+```
+
+3. 共享函数集合@zyl/shared
+   初始化 shared
+
+```bash
+$ cd packages/shared && pnpm init
+```
+
+配置路径 tsConfig
+
+```json
+"baseUrl": "./",
+"paths": {
+  "@zyl/shared": ["./packages/shared/index.ts"],
+  "@zyl/shared/*": ["./packages/shared/*"],
+  "@zyl/core": ["./packages/core/index.ts"],
+  "@zyl/core/*": ["./packages/core/*"]
+},
+```
+
+4. 单元测试
+
+```bash
+$ pnpm i vitest -Dw # 配置vitest.config.ts 及 package.json 中脚本命令。
+```
+
+5. 构建打包
+   esm、cjs、iife 格式
+
+- esm 格式：ECMAScript Module，现在使用的模块方案，使用 import export 来管理依赖；
+- cjs 格式：CommonJS，只能在 NodeJS 上运行，使用 require("module") 读取并加载模块；
+- iife 格式：通过 <script> 标签引入的自执行函数；
+
+```bash
+$ pnpm add tsup -Dw # 使用 tsup.config 处理 （用于打包 TypeScript 项目的工具）
 ```

@@ -27,8 +27,13 @@
     "module": "NodeNext" /* Specify what module code is generated. */,
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     "moduleResolution": "NodeNext" /* Specify how TypeScript looks up a file from a given module specifier. */,
-    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
-    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
+    "paths": {
+      "@zyl/shared": ["./packages/shared/index.ts"],
+      "@zyl/shared/*": ["./packages/shared/*"],
+      "@zyl/core": ["./packages/core/index.ts"],
+      "@zyl/core/*": ["./packages/core/*"]
+    } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": ["node_modules/@types"] /* Specify multiple folders that act like './node_modules/@types'. */,
     "types": ["node"] /* Specify type package names to be included without being referenced in a source file. */,
@@ -104,5 +109,14 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
-  }
+  },
+  "include": [
+    "packages",
+    "packages/.vitepress/components/*.vue",
+    "packages/.vitepress/*.ts",
+    "meta",
+    "vitest.config.ts",
+    "*.d.ts"
+  ],
+  "exclude": ["node_modules", "**/**/*.md", "**/dist", "packages/.test", "packages/_docs", "dist"]
 }
