@@ -1,1 +1,3 @@
-export * as Dlog from './Dlog.js';
+import * as DlogMethod from './Dlog.js';
+
+export { DlogMethod };

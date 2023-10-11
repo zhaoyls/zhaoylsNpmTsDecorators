@@ -1,5 +1,7 @@
-export * as commom from './commom.js';
+import * as commom from './commom.js';
 
-export * as download from './download.js';
-export * as stackError from './stackError.js';
-export * as singleton from './singleton.js';
+import * as download from './download.js';
+import * as stackError from './stackError.js';
+import * as singleton from './singleton.js';
+
+export { commom, download, stackError, singleton };

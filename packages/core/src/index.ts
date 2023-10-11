@@ -1,15 +1,25 @@
 import 'reflect-metadata';
+
 import chalk from 'chalk';
-import * as utils from './utils/index.js';
-import * as form from './form/index.js';
-import * as decorator from './decorator/index.js';
-// import { isString } from '@zyl/shared'; // TODO 待处理问题。
 
-const { print } = utils.commom;
+import { isString } from '@zyl/shared'; // 配置好 需要 install 才可以，然后就需要配合tsup编译出对应的文件
+import { commom, download, singleton } from './utils/index.js';
+// import { DlogMethod } from './decorator/index.js'
+// import { formReflect } from './form/index.js'
 
-// print("utils", utils);
-// print("form", form);
-// print("decorator", decorator);
-// Object.setPrototypeOf(decorator.Dlog, null);
+console.log(chalk.bgGreen('./src/main.ts 启动成功...'));
 
-print(chalk.bgGreen('./src/main.ts 启动成功...'));
+console.log('[ isString ] >', isString('测试...'));
+
+console.log('[ commom, download, singleton ] >', commom, download, singleton);
+// Object.setPrototypeOf(DlogMethod, null);
+// console.log('[ DlogMethod ] >', DlogMethod)
+// console.log('[ form ] >', formReflect)
+
+export {
+  commom,
+  download,
+  singleton,
+  // DlogMethod,
+  // formReflect,
+};

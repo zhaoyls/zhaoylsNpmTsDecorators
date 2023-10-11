@@ -1,3 +1,3 @@
-import * as form from './reflectForm.js';
+import * as formReflect from './reflectForm.js';
 
-export { form };
+export { formReflect };

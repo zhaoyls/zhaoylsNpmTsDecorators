@@ -56,6 +56,7 @@ export function downloadFile(url: string, params = {}, fileName = '', suffix = '
         })
         .join('&');
     }
+    stringify('');
 
     xhr.open('GET', url, true);
     // xhr.open("POST", url, true);

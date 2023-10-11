@@ -62,6 +62,8 @@ pnpm add progress -D
 
 1. 初始化工作目录配置
 
+> ！！！！！其中参数D开发依赖项 w工作区依赖（指在 `monorep`o 或多包项目中共享的依赖项），另外如果需要单独给 `packages/cor`e 安装指定依赖使用 `pnpm add chalk --filter @zyl/core`。最后就是运行对应包的脚本 `pnpm --filter @zyl/core serve`。
+
 ```bash
 $ pnpm init -y
 $ echo > pnpm-workspace.yaml
@@ -75,8 +77,6 @@ $ pnpm add ts-node -Dw  # devDependencies
 $ pnpm add nodemon -Dw  # devDependencies
 $ npx tsc --init  # create tsconfig,json
 ```
-
-> 其中参数D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项），另外如果需要单独给 packages/core 安装指定依赖使用 pnpm add chalk --filter @zyl/core。
 
 2. eslint + prettier + husky + commitlint
 
@@ -109,9 +109,9 @@ $ cd packages/shared && pnpm init
 配置路径 tsConfig
 
 ```json
-"baseUrl": "./",
+"baseUrl": ".",
 "paths": {
-  "@zyl/shared": ["./packages/shared/index.ts"],
+  "@zyl/shared": ["./packages/shared/index.ts"], // 引入它的地方 需要配置依赖和安装。
   "@zyl/shared/*": ["./packages/shared/*"],
   "@zyl/core": ["./packages/core/index.ts"],
   "@zyl/core/*": ["./packages/core/*"]
@@ -122,6 +122,7 @@ $ cd packages/shared && pnpm init
 
 ```bash
 $ pnpm i vitest -Dw # 配置vitest.config.ts 及 package.json 中脚本命令。
+
 ```
 
 5. 构建打包
@@ -134,3 +135,32 @@ $ pnpm i vitest -Dw # 配置vitest.config.ts 及 package.json 中脚本命令。
 ```bash
 $ pnpm add tsup -Dw # 使用 tsup.config 处理 （用于打包 TypeScript 项目的工具）
 ```
+tsup.config 配置:
+```js
+  {
+    entry: ['packages/shared/index.ts'],
+    format: ['cjs', 'esm', 'iife'],
+    outDir: 'packages/shared/dist',
+    dts: true, 
+    metafile: true, 
+    minify: true,
+    splitting: false,
+    sourcemap: true, 
+    clean: true, // 先清除打包的目录!
+  },
+```
+
+配置好 tsup 后在对应包 package.json 配置好路径, 例如 shared 包配置.
+```json
+ "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "unpkg": "./dist/index.global.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": "./*"
+  },```

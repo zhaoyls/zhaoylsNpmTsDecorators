@@ -32,8 +32,8 @@
   "author": "zhaoyls",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^5.3.0",
-    "@zyl/shared": "workspace:*"
+    "@zyl/shared": "workspace:*",
+    "chalk": "^5.3.0"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,23 @@
+{
+  "inputs": {
+    "packages/shared/is/index.ts": { "bytes": 1522, "imports": [], "format": "esm" },
+    "packages/shared/index.ts": {
+      "bytes": 23,
+      "imports": [{ "path": "packages/shared/is/index.ts", "kind": "import-statement", "original": "./is" }],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "packages/shared/dist/index.global.js.map": { "imports": [], "exports": [], "inputs": {}, "bytes": 2709 },
+    "packages/shared/dist/index.global.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "packages/shared/index.ts",
+      "inputs": {
+        "packages/shared/is/index.ts": { "bytesInOutput": 589 },
+        "packages/shared/index.ts": { "bytesInOutput": 0 }
+      },
+      "bytes": 614
+    }
+  }
+}
