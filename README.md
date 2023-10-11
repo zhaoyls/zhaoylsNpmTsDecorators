@@ -135,23 +135,26 @@ $ pnpm i vitest -Dw # 配置vitest.config.ts 及 package.json 中脚本命令。
 ```bash
 $ pnpm add tsup -Dw # 使用 tsup.config 处理 （用于打包 TypeScript 项目的工具）
 ```
+
 tsup.config 配置:
+
 ```js
   {
     entry: ['packages/shared/index.ts'],
     format: ['cjs', 'esm', 'iife'],
     outDir: 'packages/shared/dist',
-    dts: true, 
-    metafile: true, 
+    dts: true,
+    metafile: true,
     minify: true,
     splitting: false,
-    sourcemap: true, 
+    sourcemap: true,
     clean: true, // 先清除打包的目录!
   },
 ```
 
 配置好 tsup 后在对应包 package.json 配置好路径, 例如 shared 包配置.
-```json
+
+````json
  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "unpkg": "./dist/index.global.js",
@@ -164,3 +167,4 @@ tsup.config 配置:
     },
     "./*": "./*"
   },```
+````
