@@ -1,6 +1,9 @@
 # npmTsDecorators
 
 npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。
+- ...
+- 
+- 
 
 ## 依赖工具 ni
 
@@ -122,10 +125,29 @@ $ cd packages/shared && pnpm init
 
 ```bash
 $ pnpm i vitest -Dw # 配置vitest.config.ts 及 package.json 中脚本命令。
-
+$ pnpm i @vitest/coverage-v8 -Dw # 测试覆盖率
 ```
 
-5. 构建打包
+5. 搭建文档
+```bash
+$ pnpm i vitepress -Dw # 配置  vitepress.config.ts, 默认不需要配置
+```
+
+配置下脚本:
+```json
+  "docs:dev": "vitepress dev packages",
+  "docs:build": "vitepress build packages",
+```
+
+- 新建 packages/index.md: 编写首页配置
+- packages/core/doc/xx.md: 对应文档编写
+- packages/guide/index.md 指导页 
+- packages/.vitepress/config.ts 配置路径等
+- packages/.vitepress theme 配置主题
+
+...
+
+6. 构建打包
    esm、cjs、iife 格式
 
 - esm 格式：ECMAScript Module，现在使用的模块方案，使用 import export 来管理依赖；
@@ -166,5 +188,5 @@ tsup.config 配置:
       "types": "./dist/index.d.ts"
     },
     "./*": "./*"
-  },```
+  },
 ````

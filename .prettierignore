@@ -6,3 +6,4 @@ coverage
 # Ignore all HTML files:
 *.html
 *.ymal
+*.vitepress
