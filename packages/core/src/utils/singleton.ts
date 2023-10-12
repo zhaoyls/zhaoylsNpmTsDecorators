@@ -3,12 +3,11 @@
  * @param {Function} className - 要代理的类。
  * @returns {Proxy} ins - 传入类的实例对象。
  */
-export function singletonProxy<T extends new (...args: any[]) => any>(
-  className: T
-): T {
+export function singletonProxy<T extends new (...args: any[]) => any>(className: T): T {
   let ins: T;
   return new Proxy(className, {
-    construct(target, args) { // 通过拦截目标对象的构造函数调用，实现单例。
+    construct(target, args) {
+      // 通过拦截目标对象的构造函数调用，实现单例。
       if (!ins) {
         ins = new target(...args);
       }

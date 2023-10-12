@@ -1,4 +1,4 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 
 /**
  * @type 表单字段对应配置项类型。
@@ -14,7 +14,7 @@ interface FormFieldConfig {
   list?: Array<{
     label: string;
     value: string | number;
-  }>
+  }>;
   [key: string]: any;
 }
 
@@ -22,7 +22,7 @@ interface FormFieldConfig {
  * @Symbol 生成唯一值，用于存储类的元数据。
  * 防止被污染，call方法中存 this 也是如此。
  */
-const FORM_FIELDS_METADATA_KEY = Symbol("formFields");
+const FORM_FIELDS_METADATA_KEY = Symbol('formFields');
 
 /**
  * 表单字段装饰器
@@ -48,31 +48,31 @@ function FormField(config: FormFieldConfig): PropertyDecorator {
  */
 export class FormModel {
   @FormField({
-    name: "username",
-    label: "用户名",
-    type: "text",
+    name: 'username',
+    label: '用户名',
+    type: 'text',
     isRequired: true,
     isHidden: false,
   })
-  public username: string = "";
+  public username: string = '';
 
   @FormField({
-    name: "password",
-    label: "密码",
-    type: "password",
+    name: 'password',
+    label: '密码',
+    type: 'password',
     isRequired: true,
     isHidden: false,
   })
-  public password: string = "";
+  public password: string = '';
 
   @FormField({
-    name: "checkCode",
-    label: "验证码",
-    type: "inputText",
+    name: 'checkCode',
+    label: '验证码',
+    type: 'inputText',
     isRequired: true,
     isHidden: false,
   })
-  public checkCode: string = "";
+  public checkCode: string = '';
 
   protected constructor() {}
 }
@@ -94,10 +94,7 @@ export class FormModelUtils extends FormModel {
    * @returns {FormFieldConfig[]}
    */
   public getFormConfig(): FormFieldConfig[] {
-    const fieldList = Reflect.getMetadata(
-      FORM_FIELDS_METADATA_KEY,
-      this
-    ) as FormFieldConfig[];
+    const fieldList = Reflect.getMetadata(FORM_FIELDS_METADATA_KEY, this) as FormFieldConfig[];
     return fieldList;
   }
 
@@ -105,12 +102,9 @@ export class FormModelUtils extends FormModel {
    * 使用反射将表单数据重置
    */
   public resetField() {
-    const fieldList = Reflect.getMetadata(
-      FORM_FIELDS_METADATA_KEY,
-      this
-    ) as FormFieldConfig[];
+    const fieldList = Reflect.getMetadata(FORM_FIELDS_METADATA_KEY, this) as FormFieldConfig[];
     for (const field of fieldList) {
-      this[field.name] = "";
+      this[field.name] = '';
     }
   }
   /**
@@ -118,12 +112,9 @@ export class FormModelUtils extends FormModel {
    * @param formData 表单数据
    */
   public saveFormData(formData: FormModel) {
-    const fieldList = Reflect.getMetadata(
-      FORM_FIELDS_METADATA_KEY,
-      this
-    ) as FormFieldConfig[];
+    const fieldList = Reflect.getMetadata(FORM_FIELDS_METADATA_KEY, this) as FormFieldConfig[];
     for (const field of fieldList) {
-      this[field.name] = formData[field.name] || "";
+      this[field.name] = formData[field.name] || '';
     }
   }
 
@@ -134,10 +125,7 @@ export class FormModelUtils extends FormModel {
    */
   public getFormData(): FormModel {
     const formData = {} as FormModel;
-    const fieldList = Reflect.getMetadata(
-      FORM_FIELDS_METADATA_KEY,
-      this
-    ) as FormFieldConfig[];
+    const fieldList = Reflect.getMetadata(FORM_FIELDS_METADATA_KEY, this) as FormFieldConfig[];
     for (const field of fieldList) {
       formData[field.name] = this[field.name];
     }
@@ -151,14 +139,11 @@ export class FormModelUtils extends FormModel {
    * @returns {boolean}
    */
   public checkFormData() {
-    const fieldList = Reflect.getMetadata(
-      FORM_FIELDS_METADATA_KEY,
-      this
-    ) as FormFieldConfig[];
+    const fieldList = Reflect.getMetadata(FORM_FIELDS_METADATA_KEY, this) as FormFieldConfig[];
     for (const field of fieldList) {
       const value = this[field.name];
       if (!value && field.isRequired && !field.isHidden) {
-        console.log(field.name + value + "：" + "不能为空");
+        console.log(field.name + value + '：' + '不能为空');
         return false;
       }
     }
@@ -178,4 +163,3 @@ export class FormModelUtils extends FormModel {
 // console.log("getFormConfig", form.getFormConfig());
 
 // console.log("checkFormData", form.checkFormData());
- 

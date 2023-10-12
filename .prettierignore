@@ -1,0 +1,9 @@
+# Ignore artifacts:
+dist
+build
+coverage
+
+# Ignore all HTML files:
+*.html
+*.yaml
+*.vitepress

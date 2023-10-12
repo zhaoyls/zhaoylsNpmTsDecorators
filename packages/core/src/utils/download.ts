@@ -11,17 +11,19 @@
  * @author zhaoyls
  */
 export const comNewWindow = async (
-  url = "",
-  title: "title",
-  target: "_blank",
-  features: [/*'width=888', 'height=666', 'scrollbars=yes', ' toolbar=yes', 'resizable=no','location=no', 'status=no' */]
+  url = '',
+  title: 'title',
+  target: '_blank',
+  features: [
+    /*'width=888', 'height=666', 'scrollbars=yes', ' toolbar=yes', 'resizable=no','location=no', 'status=no' */
+  ],
 ) => {
-  var popupWin = window.open(url, target, features.join(";"));
+  var popupWin = window.open(url, target, features.join(';'));
   if (popupWin) {
-    console.log("Window opened successfully");
+    console.log('Window opened successfully');
     popupWin.document.title = title;
   } else {
-    console.log("Failed to open window");
+    console.log('Failed to open window');
   }
 };
 
@@ -33,7 +35,7 @@ export const comNewWindow = async (
  * @returns Promise - 下载成功时解析成功、否则解析为错误消息
  * @author zhaoyls
  */
-export function downloadFile(url: string, params = {}, fileName = "", suffix = '写在文件名吧！', ...args) {
+export function downloadFile(url: string, params = {}, fileName = '', suffix = '写在文件名吧！', ...args) {
   // 1.原生写法
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -41,17 +43,28 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
 
     // 整理参数仅兼容浏览器
     const searchParams = new URLSearchParams(params);
-    url = url + "?" + searchParams.toString();
+    url = url + '?' + searchParams.toString();
     // 兼容服务端和浏览器端
     // url = url + JSON.stringify(params)
+    function stringify(params) {
+      return Object.keys(params)
+        .map((key) => {
+          const value = params[key];
+          const encodedKey = encodeURIComponent(key);
+          const encodedValue = encodeURIComponent(value);
+          return `${encodedKey}=${encodedValue}`;
+        })
+        .join('&');
+    }
+    stringify('');
 
-    xhr.open("GET", url, true);
+    xhr.open('GET', url, true);
     // xhr.open("POST", url, true);
     // let data = 'param1=value1&param2=value2';
     // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    xhr.setRequestHeader("refresh-token", localStorage.getItem("token") || "");
-    xhr.responseType = "blob";
+    xhr.setRequestHeader('refresh-token', localStorage.getItem('token') || '');
+    xhr.responseType = 'blob';
 
     // 监听请求完成事件
     xhr.onload = function () {
@@ -62,7 +75,7 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
         });
         const url = window.URL || window.webkitURL;
         const downloadHref = url.createObjectURL(blob);
-        const downloadLink = document.createElement("a");
+        const downloadLink = document.createElement('a');
         downloadLink.href = downloadHref;
         downloadLink.download = fileName ? fileName : getCDFileName(res) || '未知文件';
         downloadLink.click();
@@ -78,7 +91,7 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
 
     // 监听请求超时事件
     xhr.ontimeout = function () {
-      resolve("请求超时!");
+      resolve('请求超时!');
     };
   });
 
@@ -109,13 +122,13 @@ export function downloadFile(url: string, params = {}, fileName = "", suffix = '
  * @param {string} [coding="ASCII"] - 编码方式，默认为 ASCII
  * @returns {string} - 文件名字，会带有后缀，无需手动拼接。
  */
-function getCDFileName(res, coding = "ASCII") {
+function getCDFileName(res, coding = 'ASCII') {
   const regex = /attachment;filename=(.*)/;
-  const headerField = "content-disposition";
+  const headerField = 'content-disposition';
   const cd = res.getResponseHeader?.(headerField) || res.headers?.[headerField];
   if (cd) {
     return decodeURIComponent(cd.match(regex)[1]);
   } else {
-    console.log("未找到 content-disposition 头部信息！");
+    console.log('未找到 content-disposition 头部信息！');
   }
 }

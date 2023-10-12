@@ -1,4 +1,4 @@
-import { getCallerFileInfo } from "../utils/stackError.js";
+import { getCallerFileInfo } from '../utils/stackError.js';
 
 /**
   * 装饰器函数，用于装饰一个类 声明： declare type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
@@ -11,7 +11,7 @@ import { getCallerFileInfo } from "../utils/stackError.js";
 export function DClassLog() {
   return function <T extends { new (...args: any[]): {} }>(constructor: T) {
     const { filePath, lineNumber, columnNumber } = getCallerFileInfo();
-    console.log(`${filePath}:${lineNumber}:${columnNumber}:${constructor.name}`);   
+    console.log(`${filePath}:${lineNumber}:${columnNumber}:${constructor.name}`);
   };
 }
 
@@ -49,11 +49,7 @@ export function DlogProperty(target: Object, key: string) {
  * @param descriptor 被装饰方法的对象
  * @returns 修改后的描述符对象
  */
-export function DlogMethods(
-  target: Object,
-  key: string,
-  descriptor: PropertyDescriptor
-) {
+export function DlogMethods(target: Object, key: string, descriptor: PropertyDescriptor) {
   const originalMethod = descriptor.value;
   descriptor.value = function (...args: any[]) {
     console.log(`Calling ${key} with arguments: ${JSON.stringify(args)}`);
@@ -71,15 +67,15 @@ export function DlogMethods(
 @DClassLog()
 export class ExceptionErr {
   @DlogProperty
-  private myProperty: string = "";
+  private myProperty: string = '';
 
   @DlogMethods
   public getSetLog(param1: string, param2: number): string {
-    this.myProperty = 'setter' + ' ' + "触发了属性装饰器！";
-    console.log('[  getmyProperty ] >', this.myProperty)
-    
+    this.myProperty = 'setter' + ' ' + '触发了属性装饰器！';
+    console.log('[  getmyProperty ] >', this.myProperty);
+
     return `Received ${param1} and ${param2}`;
   }
 }
 
-// new ExceptionErr().getSetLog("参数", 6666666777777777); 
+// new ExceptionErr().getSetLog("参数", 6666666777777777);
