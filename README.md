@@ -52,13 +52,15 @@ See: [npm](https://www.npmjs.com/)
 # 1.单一的版本控制（ monorepo 多项目在一个仓库管理）
 $ npm init --scope=zylmo -y
 $ npm / pnpm publish --access=public # "publishConfig": { "access": "public"} 最好在子包中添加配置.
+$ npm / pnpm unpublish zyls-decorators --force # 删除指定的 package 或者对应版本。 
 
 # 2.或分包发布控制 D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项）
-# !!!!!!!! 注意子包的@xxx/xx 需要在 npm 注册 Organizations 并添加 @zylmo/shared / @zylmo/shared package包 
+# !!!!!!!! 注意子包的@xxx/xx 需要在 npm 注册 Organizations 并添加 @zylmo/shared / @zylmo/shared package包
 pnpm i @changesets/cli -Dw
 pnpm changeset init
 
 ```
+
 配置脚本 package.json "script": {...}
 
 ```json
