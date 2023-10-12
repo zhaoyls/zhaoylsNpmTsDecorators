@@ -1,6 +1,6 @@
 {
-  "name": "zy1",
-  "version": "3.0.0",
+  "name": "zylmo",
+  "version": "3.0.1",
   "description": "monorepo 整合项目的工具包",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,8 @@
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "git-checks": false
+    "git-checks": false,
+    "access": "public"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
@@ -50,5 +51,18 @@
     "typescript": "^5.2.2",
     "vitepress": "1.0.0-rc.20",
     "vitest": "^0.34.6"
-  }
+  },
+  "dependencies": {
+    "eslint-scope": "^7.2.2",
+    "prettier-linter-helpers": "^1.0.0",
+    "eslint-visitor-keys": "^3.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaoyls/zhaoylsNpmTsDecorators.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhaoyls/zhaoylsNpmTsDecorators/issues"
+  },
+  "homepage": "https://github.com/zhaoyls/zhaoylsNpmTsDecorators#readme"
 }

@@ -50,7 +50,7 @@ See: [npm](https://www.npmjs.com/)
 
 ```bash
 # 1.单一的版本控制（ monorepo 多项目在一个仓库管理）
-$ npm / pnpm init --scope=itsme -y
+$ npm init --scope=zyl -y
 $ npm / pnpm publish --access=public # "publishConfig": { "access": "public"} 最好在子包中添加配置.
 
 # 2.或分包发布控制 D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项）
