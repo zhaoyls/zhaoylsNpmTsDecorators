@@ -135,9 +135,15 @@ GitHub Pages。
 ```bash
 $ pnpm i vitepress -Dw # 配置  vitepress.config.ts, 默认不需要配置
 ```
-- 配置：C:\Users\zyl\Desktop\react\zylsTsDecorators\.github\workflows\docs-deploy.yml
+- 配置Workflow file：C:\Users\zyl\Desktop\react\zylsTsDecorators\.github\workflows\docs-deploy.yml
 - git push 提交去运行工作 （失败了可能是权限等问题，去 github的 Actions 运行的任务去查看  ）
-- 
+- 权限问题： Settings -> developer settings -> Token(classic) 配置生成。
+- 去对应的项目点击 Settings -> Security -> Secrets -> Actions -> New repository secret 设置Name = ACTION_SECRET 值为上面生成的 Token。生成后可在 Repository secrets 中查看结果。
+- 重新运行 Actions 中的工作。
+- 项目 Settings -> pages -> Build and deployment 设置在一个新的分支部署文档就OK.
+
+
+<!-- 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 -->
 
 
 配置下脚本:
