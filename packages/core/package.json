@@ -1,6 +1,6 @@
 {
-  "name": "@zyl/core",
-  "version": "1.0.0",
+  "name": "@zylmo/core",
+  "version": "1.0.1",
   "description": "npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。",
   "type": "module",
   "scripts": {
@@ -33,11 +33,11 @@
   "author": "zhaoyls",
   "license": "ISC",
   "dependencies": {
-    "@zyl/shared": "workspace:*",
+    "@zylmo/shared": "workspace:*",
     "chalk": "^5.3.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhaoyls/zylsTsDecorators.git"
+    "url": "git+https://github.com/zhaoyls/zylmosTsDecorators.git"
   }
 }

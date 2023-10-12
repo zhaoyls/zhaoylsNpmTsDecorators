@@ -21,7 +21,7 @@ export default {
     logo: '/logo.png',
     lastUpdated: true,
     lastUpdatedText: '最后修改时间',
-    socialLinks: [{ icon: 'github', link: 'https://github.com/zhaoyls/zylsTsDecorators' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/zhaoyls/zylmosTsDecorators' }],
     nav: [
       { text: '指南', link: '/guide/' },
       { text: '函数集合', link: '/core/src/doc/singleton.md' },

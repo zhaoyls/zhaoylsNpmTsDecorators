@@ -8,7 +8,7 @@
     ## Usage
 
     ``` ts
-      import { singleton } from "@zyl/core"
+      import { singleton } from "@zylmo/core"
 
       const a = singleton.singletonProxy()
       const b = singleton.singletonProxy()

@@ -2,11 +2,11 @@
 layout: home
 sidebar: false
 
-title: zyljs
+title: zylmojs
 titleTemplate: 一个疯狂的开源前端工具库
 
 hero:
-  name: zyljs
+  name: zylmojs
   text: 一个疯狂的开源前端工具库
   tagline: 🎉 一个疯狂的开源前端工具库
   actions:
@@ -24,7 +24,7 @@ hero:
       link: /react
     - theme: alt
       text: View on GitHub
-      link: https://github.com/zhaoyls/zylsTsDecorators
+      link: https://github.com/zhaoyls/zylmosTsDecorators
 
 features:
   - title: 功能丰富

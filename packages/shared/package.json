@@ -1,6 +1,6 @@
 {
-  "name": "@zyl/shared",
-  "version": "1.0.0",
+  "name": "@zylmo/shared",
+  "version": "1.0.1",
   "description": "shared",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

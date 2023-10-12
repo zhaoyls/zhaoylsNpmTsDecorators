@@ -7,8 +7,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@zyl/shared': resolve(__dirname, 'packages/shared/index.ts'),
-      '@zyl/core': resolve(__dirname, 'packages/core/index.ts'),
+      '@zylmo/shared': resolve(__dirname, 'packages/shared/index.ts'),
+      '@zylmo/core': resolve(__dirname, 'packages/core/index.ts'),
     },
   },
 });

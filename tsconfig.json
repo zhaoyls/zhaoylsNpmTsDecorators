@@ -31,10 +31,10 @@
     "moduleResolution": "Node" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "baseUrl": "." /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
-      "@zyl/shared": ["./packages/shared/index.ts"],
-      "@zyl/shared/*": ["./packages/shared/*"],
-      "@zyl/core": ["./packages/core/index.ts"],
-      "@zyl/core/*": ["./packages/core/*"]
+      "@zylmo/shared": ["./packages/shared/index.ts"],
+      "@zylmo/shared/*": ["./packages/shared/*"],
+      "@zylmo/core": ["./packages/core/index.ts"],
+      "@zylmo/core/*": ["./packages/core/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": ["node_modules/@types"] /* Specify multiple folders that act like './node_modules/@types'. */,
