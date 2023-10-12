@@ -37,8 +37,8 @@ See: [npm](https://www.npmjs.com/)
 ### 查看用户，登录 npm 官网
 
 ```bash
- $ npm whoami / pnpm whoam
  $ npm login / pnpm login
+ $ npm whoami / pnpm whoami
  Username: admin
  Password: 123456
  Email: (this IS public) 123456@qq.com
