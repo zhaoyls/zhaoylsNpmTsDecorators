@@ -1,7 +1,7 @@
 {
   "name": "zy1",
-  "version": "2.1.5",
-  "description": "monorepo项目",
+  "version": "3.0.0",
+  "description": "monorepo 整合项目的工具包",
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.json --max-warnings 10 --cache",
@@ -13,7 +13,8 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "docs:dev": "vitepress dev packages",
-    "docs:build": "vitepress build packages"
+    "docs:build": "vitepress build packages",
+    "release": "changeset publish"
   },
   "lint-staged": {
     "*.{vue,js,ts,jsx,tsx,json}": [
@@ -25,6 +26,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@commitlint/cli": "^17.7.2",
     "@commitlint/config-conventional": "^17.7.0",
     "@types/node": "^20.8.3",
