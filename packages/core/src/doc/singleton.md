@@ -12,7 +12,7 @@
 
       const a = singleton.singletonProxy()
       const b = singleton.singletonProxy()
-      
+
       // do something
     ```
 
@@ -26,4 +26,3 @@
     -  true
 
     -  false
-

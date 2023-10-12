@@ -1,9 +1,10 @@
 # npmTsDecorators
 
 npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。
+
 - ...
-- 
-- 
+-
+-
 
 ## 依赖工具 ni
 
@@ -129,11 +130,18 @@ $ pnpm i @vitest/coverage-v8 -Dw # 测试覆盖率
 ```
 
 5. 搭建文档
+GitHub Pages。
+
 ```bash
 $ pnpm i vitepress -Dw # 配置  vitepress.config.ts, 默认不需要配置
 ```
+- 配置：C:\Users\zyl\Desktop\react\zylsTsDecorators\.github\workflows\docs-deploy.yml
+- git push 提交去运行工作 （失败了可能是权限等问题，去 github的 Actions 运行的任务去查看  ）
+- 
+
 
 配置下脚本:
+
 ```json
   "docs:dev": "vitepress dev packages",
   "docs:build": "vitepress build packages",
@@ -141,7 +149,7 @@ $ pnpm i vitepress -Dw # 配置  vitepress.config.ts, 默认不需要配置
 
 - 新建 packages/index.md: 编写首页配置
 - packages/core/doc/xx.md: 对应文档编写
-- packages/guide/index.md 指导页 
+- packages/guide/index.md 指导页
 - packages/.vitepress/config.ts 配置路径等
 - packages/.vitepress theme 配置主题
 
@@ -176,7 +184,7 @@ tsup.config 配置:
 
 配置好 tsup 后在对应包 package.json 配置好路径, 例如 shared 包配置.
 
-````json
+```json
  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "unpkg": "./dist/index.global.js",
@@ -189,4 +197,4 @@ tsup.config 配置:
     },
     "./*": "./*"
   },
-````
+```
