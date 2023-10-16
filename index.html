@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仅用于测试代码这里...</title>
+</head>
+
+<body>
+    <script> 
+         // 菜单数组转换为嵌套树形结构
+        function convertToNestedArray(arr) {
+            const result = [];
+
+            // 创建一个字典，以id作为键，将每个对象的引用存储在字典中
+            const dictionary = {};
+            arr.forEach(obj => {
+                dictionary[obj.id] = obj;
+            });
+
+            // 遍历数组，将每个对象添加到父级对象的children数组中
+            arr.forEach(obj => {
+                if (obj.parentId) {
+                    const parent = dictionary[obj.parentId];
+                    if (parent) {
+                        parent.children = parent.children || [];
+                        parent.children.push(obj);
+                    }
+                } else {
+                    result.push(obj);
+                }
+            });
+
+            return result;
+        }
+
+        const arr = [
+            { id: 1, menu: '水果', level: 1 },
+            { id: 2, menu: '橘子', level: 2, parentId: 1 }
+            // ...
+        ]
+
+        console.log('%c [ 新结果 ]-44', 'font-size:13px; background:#f098c2; color:#ffdcff;',
+            convertToNestedArray(arr)
+        )
+
+
+        console.log('%c [ 原arr ]-49', 'font-size:13px; background:#95092c; color:#d94d70;', arr)
+        //  数组扁平化
+        function flatten(arr, depth = Infinity) {
+          if (depth === 0) {
+            return arr;
+          }
+
+          return arr.reduce((result, item) => {
+            if (Array.isArray(item)) {
+              result.push(...flatten(item, depth - 1));
+            } else {
+              result.push(item);
+            }
+            return result;
+          }, []);
+        }
+
+        const array = [[0, 1], [2, [3, 4]], [5, 6]];
+        const result = flatten(array);
+
+
+        console.log('%c [  flatten]-70', 'font-size:13px; background:#9a2a85; color:#de6ec9;', result)
+    </script>
+
+    <!-- <script type="module" src="/tsup.config.ts">
+    </script> -->
+</body>
+
+</html>

@@ -134,7 +134,7 @@ $ cd packages/shared && pnpm init
 ```json
 "baseUrl": ".",
 "paths": {
-  "@zylmo/shared": ["./packages/shared/index.ts"], // 引入它的地方 需要配置依赖和安装。
+  "@zylmo/shared": ["./packages/shared/index.ts"], 
   "@zylmo/shared/*": ["./packages/shared/*"],
   "@zylmo/core": ["./packages/core/index.ts"],
   "@zylmo/core/*": ["./packages/core/*"]
@@ -174,10 +174,10 @@ $ pnpm i vitepress -Dw # 配置  vitepress.config.ts, 默认不需要配置
 GitHub Pages。
 
 - 配置Workflow file：C:\Users\zylmo\Desktop\react\zylmosTsDecorators\.github\workflows\docs-deploy.yml
-- git push 提交去运行工作 （失败了可能是权限等问题，去 github的 Actions 运行的任务去查看 ）
+- git push 提交去运行工作 （失败了可能是权限等问题，去 github 的 Actions 运行的任务去查看 ）
 - 权限问题：头像-> Settings -> developer settings -> Token(classic) 配置生成 (这里我取名：zylmo-tool)。
 - 去对应的项目点击 Settings -> Security -> Secrets -> Actions -> New repository secret 设置Name = ACTION_SECRET 值为上面生成的 Token。生成后可在 Repository secrets 中查看结果。
-- 重新运行 Actions 中的工作 （回去用自己电脑 git config list --list 配置部署试试 目前403）。
+- 重新运行 Actions 中的工作 （回去用自己电脑 git config list --list 配置部署试试 ===>>>>>>>> `目前403 TODO 2023.10.16！！`）。
 - 项目 Settings -> pages -> Build and deployment 设置在一个新的分支部署文档就OK.
 
 ### tsup 构建打包
@@ -204,7 +204,7 @@ tsup.config 配置:
     minify: true,
     splitting: false,
     sourcemap: true,
-    clean: true, // 先清除打包的目录!
+    clean: true, // 先清除打包的目录.
   },
 ```
 

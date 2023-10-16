@@ -1,6 +1,6 @@
 {
   "name": "@zylmo/core",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。",
   "type": "module",
   "scripts": {
