@@ -1,6 +1,9 @@
 # npmTsDecorators
 
 npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。
+- ...
+- 
+- 
 
 - [pnpm 及项目初始化](#初始化项目)
 - [monorep 工具项目](#发布-npm-包流程)
@@ -155,7 +158,6 @@ $ pnpm i vitepress -Dw # 配置  vitepress.config.ts, 默认不需要配置
 ```
 
 配置下脚本:
-
 ```json
   "docs:dev": "vitepress dev packages",
   "docs:build": "vitepress build packages",
