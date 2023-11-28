@@ -1,9 +1,10 @@
 # npmTsDecorators
 
 npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。
+
 - ...
-- 
-- 
+-
+-
 
 - [pnpm 及项目初始化](#初始化项目)
 - [monorep 工具项目](#发布-npm-包流程)
@@ -55,7 +56,7 @@ See: [npm](https://www.npmjs.com/)
 # 1.单一的版本控制（ monorepo 多项目在一个仓库管理）
 $ npm init --scope=zylmo -y
 $ npm / pnpm publish --access=public # "publishConfig": { "access": "public"} 最好在子包中添加配置.
-$ npm / pnpm unpublish zyls-decorators --force # 删除指定的 package 或者对应版本。 
+$ npm / pnpm unpublish zyls-decorators --force # 删除指定的 package 或者对应版本。
 
 # 2.或分包发布控制 D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项）
 # !!!!!!!! 注意子包的@xxx/xx 需要在 npm 注册 Organizations 并添加 @zylmo/shared / @zylmo/shared package包
@@ -137,7 +138,7 @@ $ cd packages/shared && pnpm init
 ```json
 "baseUrl": ".",
 "paths": {
-  "@zylmo/shared": ["./packages/shared/index.ts"], 
+  "@zylmo/shared": ["./packages/shared/index.ts"],
   "@zylmo/shared/*": ["./packages/shared/*"],
   "@zylmo/core": ["./packages/core/index.ts"],
   "@zylmo/core/*": ["./packages/core/*"]
@@ -158,6 +159,7 @@ $ pnpm i vitepress -Dw # 配置  vitepress.config.ts, 默认不需要配置
 ```
 
 配置下脚本:
+
 ```json
   "docs:dev": "vitepress dev packages",
   "docs:build": "vitepress build packages",
