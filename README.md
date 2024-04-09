@@ -122,8 +122,8 @@ $ npx husky add .husky/pre-commit "npx --no-install lint-staged"
 $ pnpm i @commitlint/config-conventional @commitlint/cli  -Dw
 $ npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 
-# 验证：
-$ git add . && git commit -m "验证 husky commitlint"
+# 验证： 
+$ git add . && git commit -m "feat: 验证 husky commitlint" # -m 语法 <type>(<scope>): <subject> => feat: 成功 （:需要英文）
 $ git push
 ```
 
