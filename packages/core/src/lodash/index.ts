@@ -1,9 +1,9 @@
 // 2023...
 console.log(
-  '%c [  lodash ]-2',
+  '%c [  [lodash]:(https://www.lodashjs.com/) ]-2',
   'font-size:13px; background:#0567f5; color:#49abff;',
-  '常用工具： cloneDeep、throttle、debounce、_.merge(object, [sources])、_.uniqueId',
-  '命名风格 _.snakeCase、_.camelCase、const pascalCase = (string) => _.upperFirst(_.camelCase(string)); _.kebabCase、',
+  '常用工具： cloneDeep、throttle、debounce、_.merge(object, [sources])、_.uniqueId、 _.orderBy（集合分类中）',
+  '命名风格 _.snakeCase、_.camelCase、const pascalCase = (string) => _.upperFirst(_.camelCase(string)); _.kebabCase、Ctrl+Shift+u/i VSCODE',
 );
 
 function uDebounce<T extends Function>(func: T, wait: number): T {

@@ -8,70 +8,122 @@
 </head>
 
 <body>
-    <script> 
-         // 菜单数组转换为嵌套树形结构
-        function convertToNestedArray(arr) {
-            const result = [];
+    <script>
 
-            // 创建一个字典，以id作为键，将每个对象的引用存储在字典中
-            const dictionary = {};
-            arr.forEach(obj => {
-                dictionary[obj.id] = obj;
-            });
-
-            // 遍历数组，将每个对象添加到父级对象的children数组中
-            arr.forEach(obj => {
-                if (obj.parentId) {
-                    const parent = dictionary[obj.parentId];
-                    if (parent) {
-                        parent.children = parent.children || [];
-                        parent.children.push(obj);
-                    }
-                } else {
-                    result.push(obj);
-                }
-            });
-
-            return result;
-        }
 
         const arr = [
-            { id: 1, menu: '水果', level: 1 },
-            { id: 2, menu: '橘子', level: 2, parentId: 1 }
-            // ...
-        ]
+            { id: 1, name: "总经办", parentId: 0 },
+            { id: 2, name: "研发部", parentId: 1 },
+            { id: 4, name: "行政人事部1", parentId: 1 },
+            { id: 6, name: "行政人事部下4", parentId: 4 },
+            { id: 7, name: "行政人事部4", parentId: 4 },
+            { id: 20, name: "研发下2", parentId: 2 },
+            { id: 21, name: "研发下2", parentId: 2 },
+            { id: 22, name: "研发下2", parentId: 2 },
+        ];
 
-        console.log('%c [ 新结果 ]-44', 'font-size:13px; background:#f098c2; color:#ffdcff;',
-            convertToNestedArray(arr)
-        )
 
+        function withIdToTree(arr, pid, pidName = 'parentId') {
+            return arr
+                .filter((item) => item[pidName] === pid)
+                .map((item) => {
+                    item.children = withIdToTree(arr, item.id);
+                    return item;
+                });
+        }
 
-        console.log('%c [ 原arr ]-49', 'font-size:13px; background:#95092c; color:#d94d70;', arr)
+        console.log('%c [ withIdToTree ]-35', 'font-size:13px; background:#94bfc1; color:#d8ffff;', withIdToTree(arr, 1))
+        
+
+        function listToTree(list, parentId = null) {
+            const tree = [];
+            // for (let i = 0; i < list.length; i++) {
+            //     if (list[i].parentId === parentId) {
+            //         const node = {
+            //             parentId: parentId,
+            //             id: list[i].id,
+            //             name: list[i].name,
+            //             children: listToTree(list, list[i].id)
+            //         };
+            //         tree.push(node);
+            //     } else {
+            //         tree.push(list[i]);
+            //     }
+            // }
+
+            const map = {}
+            for (let i = 0; i < list.length; i++) {
+                const item = list[i];
+                map[item.id] = {...item, children: []};
+            }
+
+            for (let i = 0; i < list.length; i++) {
+                const item = map[list[i].id];
+                if (node.parentId !== 0 && map[item.parentId]) {
+                    map[item.parentId].children.push(item);
+                } else {
+                    tree.push(item);
+                }
+            }
+            return tree;
+        }
+       
+        console.log('%c [ listToTree ]-71', 'font-size:13px; background:#94bfc1; color:#d8ffff;', listToTree(arr, 1))
         //  数组扁平化
         function flatten(arr, depth = Infinity) {
-          if (depth === 0) {
-            return arr;
-          }
-
-          return arr.reduce((result, item) => {
-            if (Array.isArray(item)) {
-              result.push(...flatten(item, depth - 1));
-            } else {
-              result.push(item);
+            if (depth === 0) {
+                return arr;
             }
-            return result;
-          }, []);
+
+            return arr.reduce((result, item) => {
+                if (Array.isArray(item)) {
+                    result.push(...flatten(item, depth - 1));                 
+                } else {
+                    result.push(item);
+                }
+                return result;
+            }, []);
         }
 
         const array = [[0, 1], [2, [3, 4]], [5, 6]];
         const result = flatten(array);
 
 
-        console.log('%c [  flatten]-70', 'font-size:13px; background:#9a2a85; color:#de6ec9;', result)
+        console.log('%c [flatten 数组扁平化结果  ]-89', 'font-size:13px; background:#45d773; color:#89ffb7;', result)
     </script>
 
     <!-- <script type="module" src="/tsup.config.ts">
     </script> -->
+
+
+    <script>
+        /**
+         * this 问题。
+         * */
+        let a = 0; // 不是var 所以没有全局作用域，如果var 那么第一个fun()输出是 0
+        const obj = {
+            a: 1,
+            b: function () {
+                console.log(this.a);
+            }
+        }
+
+        const obj1 = {
+            a: 2
+        }
+
+
+        const fun = obj.b;
+        fun() // undefined
+        fun.apply(obj) // 1 (obj.fun...)
+
+        fun.bind(obj1).apply(obj)//2
+
+        const fun1 = fun.bind(obj1);
+
+        new fun() // undefined
+
+    </script>
 </body>
 
 </html>

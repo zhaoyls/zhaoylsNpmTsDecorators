@@ -106,6 +106,8 @@ $ npx tsc --init  # create tsconfig,json
 
 ### eslint + prettier + husky + commitlint
 
+后续使用不要切换 node 的版本，否之会导致此功能无法使用， 例如提示？？语法无法识别等！！！！！
+
 ```bash
 $ pnpm i eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin -Dw  # 去配置脚本命令和检查的规则。
 
