@@ -9,8 +9,6 @@
 
 <body>
     <script>
-
-
         const arr = [
             { id: 1, name: "总经办", parentId: 0 },
             { id: 2, name: "研发部", parentId: 1 },
@@ -33,7 +31,7 @@
         }
 
         console.log('%c [ withIdToTree ]-35', 'font-size:13px; background:#94bfc1; color:#d8ffff;', withIdToTree(arr, 1))
-        
+
 
         function listToTree(list, parentId = null) {
             const tree = [];
@@ -54,12 +52,12 @@
             const map = {}
             for (let i = 0; i < list.length; i++) {
                 const item = list[i];
-                map[item.id] = {...item, children: []};
+                map[item.id] = { ...item, children: [] };
             }
 
             for (let i = 0; i < list.length; i++) {
                 const item = map[list[i].id];
-                if (node.parentId !== 0 && map[item.parentId]) {
+                if (item.parentId !== 0 && map[item.parentId]) {
                     map[item.parentId].children.push(item);
                 } else {
                     tree.push(item);
@@ -67,7 +65,7 @@
             }
             return tree;
         }
-       
+
         console.log('%c [ listToTree ]-71', 'font-size:13px; background:#94bfc1; color:#d8ffff;', listToTree(arr, 1))
         //  数组扁平化
         function flatten(arr, depth = Infinity) {
@@ -77,7 +75,7 @@
 
             return arr.reduce((result, item) => {
                 if (Array.isArray(item)) {
-                    result.push(...flatten(item, depth - 1));                 
+                    result.push(...flatten(item, depth - 1));
                 } else {
                     result.push(item);
                 }
@@ -90,11 +88,11 @@
 
 
         console.log('%c [flatten 数组扁平化结果  ]-89', 'font-size:13px; background:#45d773; color:#89ffb7;', result)
+
     </script>
 
     <!-- <script type="module" src="/tsup.config.ts">
     </script> -->
-
 
     <script>
         /**
@@ -123,6 +121,50 @@
 
         new fun() // undefined
 
+
+        // promiseAll
+        function promiseAll(promises) {
+            if (!Array.isArray(promises)) {
+                throw new Error('参数必须是数组');
+            }
+            if (promises.length === 0) {
+                return Promise.resolve([]);
+            }
+            return new Promise((resolve, reject) => {
+                let results = [];
+                let completedPromises = 0;
+
+                promises.forEach((promise, index) => {
+                    promise.then((result) => {
+                        results[index] = result; // 顺序完成存储。
+                        completedPromises++;
+
+                        if (completedPromises === promises.length) {
+                            resolve(results); // 所有完成
+                        }
+                    }).catch((error) => {
+                        reject(error); // 失败直接拦截
+                    });
+                });
+            });
+        }
+        // const p = promiseAll([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)]).then((res) => {
+        //     console.log(res);
+        // }).catch((err) => {
+        //     console.log(err);
+        // })
+
+        promiseAll([]).then((res) => {
+            console.log(res);
+        })
+        Promise.all([]).then((res) => {
+            console.log(res);
+        })
+
+        function PromiseLike(promise) {
+            return !!promise && (typeof promise === 'object' || typeof promise === 'function') && typeof promise.then === 'function';
+        }
+        // console.log(PromiseLike(Promise.resolve(1)))
     </script>
 </body>
 
