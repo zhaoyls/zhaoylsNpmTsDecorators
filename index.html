@@ -164,7 +164,26 @@
         function PromiseLike(promise) {
             return !!promise && (typeof promise === 'object' || typeof promise === 'function') && typeof promise.then === 'function';
         }
-        // console.log(PromiseLike(Promise.resolve(1)))
+        console.log(PromiseLike(Promise.resolve()))
+
+        promiseRace([Promise.resolve(1)]).then((res) => {
+            console.log(res);
+        })
+
+        function promiseRace(promise = []) {
+            if (!Array.isArray(promise)) return Promise.reject(new Error('参数必须是数组'));
+            return new Promise((resolve, reject) => {
+                promise.forEach((item, index) => {
+                  item.then((res) => {
+                    resolve(res)
+                  }).catch((err) => {
+                        reject(err)
+                    })
+                })
+            })
+
+        }
+        
     </script>
 </body>
 
