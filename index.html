@@ -181,7 +181,38 @@
                     })
                 })
             })
+            // return new Promise((resolve, reject) => {
+            //     promise.reduce(function (acc, item) {
+            //         return acc.then(function () {
+            //             return item;
+            //         }).catch(function (err) {
+            //             return Promise.reject(err);
+            //         });
+            //     }, Promise.resolve()).then(function (res) {
+            //         return resolve(res);
+            //     }, function (err) {
+            //         return reject(err);
+            //     });
+            // });
+        }
 
+        // 快速排序
+        // 思路：选择一个基准值，比基准值小的值都放在左边，比基准值大的值都放在右边
+        // 递归地对左右两部分进行排序，最终合并成一个有序数组
+        function quickSort(arr) {
+            if (arr.length <= 1) return arr;
+            let pivotIndex = Math.floor(arr.length / 2); // 选取基准值
+            let pivot = arr.splice(pivotIndex, 1)[0]; // 把基准值从数组中取出 (删除的一项，返回的是数组)
+            let left = []; // 存放比基准值小的值
+            let right = []; // 存放比基准值大的值
+            for (let i = 0; i < arr.length; i++) { // 分别把小于基准值和大于基准值的值放入两个数组中
+                if (arr[i] < pivot) {
+                    left.push(arr[i]);
+                } else {
+                    right.push(arr[i]);
+                }
+            }
+            return quickSort(left).concat([pivot], quickSort(right)); // 递归地对左右两部分进行排序，最终合并成一个有序数组
         }
         
     </script>
