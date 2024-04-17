@@ -1,67 +1,54 @@
 # npmTsDecorators
 
-npm 发布包测试代码，后续 TS 装饰器学习代码以及工具封装都会存在这里。
+npm 发布包（monorepo项目），后续 TS 装饰器学习代码以及工具封装都会存在这里。
 
-- ...
--
--
-
-- [pnpm 及项目初始化](#初始化项目)
-- [monorep 工具项目](#发布-npm-包流程)
-- [eslint husky等工具](#eslint--prettier--husky--commitlint)
+- [pnpm 来项目初始化](#初始化项目)
+- [npm zylmo 注册发布流程](#发布包流程)
+- [Monorepo zylmo 仓库搭建](#Monorepo工具库搭建)
+- [eslint prettier husky 等工具](#eslint--prettier--husky--commitlint)
 - [vitest 单元测试](#vitest-单元测试)
 - [vitepress 文档](#vitepress-搭建文档)
-- [tsup 构建打包](#tsup-构建打包)
-- [github pages](#github-pages-部署文档)
-- [npm 发包](#发布-npm-包流程)
-
-## 依赖工具 ni
-
-```sh
-$ npm i @antfu/ni -g
-$ ni --frozen
-$ nr serve
-$ nr build
-```
+- [tsup 多格式构建打包](#tsup-多格式构建打包)
+- [github pages 部署文档](#github-pages-部署文档)
 
 ## 初始化项目
 
 See: [pnpm](https://pnpm.io/zh/pnpm-cli)
 
 ```bash
-$  npm / pnpm init -y         # package.json
-$  npm / pnpm add typescript  # dependencies
-$  npm / pnpm add typescript -D # devDependencies
+$ pnpm init -y         # package.json
+$ pnpm add typescript -P # dependencies
+$ pnpm add typescript -D # devDependencies
 ```
 
-## 发布 npm 包流程
+## 发布包流程
 
 See: [npm](https://www.npmjs.com/)
 
-### 查看用户，登录 npm 官网
+### 登录查看用户， 密码验证
 
 ```bash
- $ npm login / pnpm login
- $ npm whoami / pnpm whoami
+ $ pnpm login
+ $ pnpm whoami
  Username: admin
  Password: 123456
  Email: (this IS public) 123456@qq.com
  npm notice Please check your email for a one-time password (OTP)
- Enter one-time password: 键入一次性口令/密码（OTP）。
+ Enter one-time password: 键入一次性口令/密码（OTP）
 ```
 
 ### 添加作用域@，并公开包权限
 
 ```bash
 # 1.单一的版本控制（ monorepo 多项目在一个仓库管理）
-$ npm init --scope=zylmo -y
-$ npm / pnpm publish --access=public # "publishConfig": { "access": "public"} 最好在子包中添加配置.
-$ npm / pnpm unpublish zyls-decorators --force # 删除指定的 package 或者对应版本。
+$ pnpm init --scope=zylmo -y  # zylmo
+$ pnpm publish --access=public # "publishConfig": { "access": "public"} 最好在子包中添加配置.
+$ pnpm unpublish zyls-decorators --force # 用于删除指定的 package 或者对应版本。
 
-# 2.或分包发布控制 D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项）
-# !!!!!!!! 注意子包的@xxx/xx 需要在 npm 注册 Organizations 并添加 @zylmo/shared / @zylmo/shared package包
-pnpm i @changesets/cli -Dw
-pnpm changeset init
+# 2.分包发布 D开发依赖项 w工作区依赖（指在 monorepo 或多包项目中共享的依赖项）
+# !! 注意子包的 @xxx/xx 需要在 npm 注册 Organizations 并添加 @zylmo/shared / @zylmo/shared package 包才可以正常发布。
+$ pnpm i @changesets/cli -Dw
+$ pnpm changeset init
 
 ```
 
@@ -73,22 +60,15 @@ pnpm changeset init
 }
 ```
 
-发布： pnpm release。
+发布： `pnpm release` ...
 
-### 新增打印工具 chalk progress
-
-```bash
-pnpm add chalk -D
-pnpm add progress -D
-```
-
-## 工具库搭建
+## Monorepo工具库搭建
 
 Monorepo 开发方式。
 
 ### 初始化工作目录配置
 
-> ！！！！！其中参数D开发依赖项 w工作区依赖（指在 `monorepo` 或多包项目中共享的依赖项），另外如果需要单独给 `packages/cor`e 安装指定依赖使用 `pnpm add chalk --filter @zylmo/core`。最后就是运行对应包的脚本 `pnpm --filter @zylmo/core serve`。
+> 中参数D开发依赖项 w工作区依赖（指在 `monorepo` 或多包项目中共享的依赖项），另外如果需要单独给 `packages/core` 安装指定依赖使用 `pnpm add chalk --filter @zylmo/core`。最后就是运行对应包的脚本 `pnpm --filter @zylmo/core serve`。
 
 ```bash
 $ pnpm init -y
@@ -106,7 +86,7 @@ $ npx tsc --init  # create tsconfig,json
 
 ### eslint + prettier + husky + commitlint
 
-后续使用不要切换 node 的版本，否之会导致此功能无法使用， 例如提示？？语法无法识别等！！！！！
+!!后续使用不要切换 node 的版本，否之会导致此功能无法使用， 例如提示??语法无法识别等
 
 ```bash
 $ pnpm i eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin -Dw  # 去配置脚本命令和检查的规则。
@@ -122,7 +102,7 @@ $ npx husky add .husky/pre-commit "npx --no-install lint-staged"
 $ pnpm i @commitlint/config-conventional @commitlint/cli  -Dw
 $ npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 
-# 验证： 
+# 验证：
 $ git add . && git commit -m "feat: 验证 husky commitlint" # -m 语法 <type>(<scope>): <subject> => feat: 成功 （:需要英文）
 $ git push
 ```
@@ -150,8 +130,8 @@ $ cd packages/shared && pnpm init
 ### vitest 单元测试
 
 ```bash
-$ pnpm i vitest -Dw # 配置vitest.config.ts 及 package.json 中脚本命令。
-$ pnpm i @vitest/coverage-v8 -Dw # 测试覆盖率
+$ pnpm i vitest -Dw # 配置 vitest.config.ts 及 package.json 中脚本命令。
+$ pnpm i @vitest/coverage-v8 -Dw # 测试覆盖率, 运行 coverage 的 html 可查看结果。
 ```
 
 ### vitepress 搭建文档
@@ -186,13 +166,13 @@ GitHub Pages。
 - 重新运行 Actions 中的工作 （回去用自己电脑 git config list --list 配置部署试试 ===>>>>>>>> `目前403 TODO 2023.10.16！！`）。
 - 项目 Settings -> pages -> Build and deployment 设置在一个新的分支部署文档就OK.
 
-### tsup 构建打包
+### tsup 多格式构建打包
 
 tsup 来构建 esm、cjs、iife 格式文件或者选择 vite、webpack等工具
 
 - esm 格式：ECMAScript Module，现在使用的模块方案，使用 import export 来管理依赖；
 - cjs 格式：CommonJS，只能在 NodeJS 上运行，使用 require("module") 读取并加载模块；
-- iife 格式：通过 <script> 标签引入的自执行函数；
+- iife 格式：通过 `<script>` 标签引入的自执行函数；
 
 ```bash
 $ pnpm add tsup -Dw # 使用 tsup.config 处理 （用于打包 TypeScript 项目的工具）
@@ -210,14 +190,14 @@ tsup.config 配置:
     minify: true,
     splitting: false,
     sourcemap: true,
-    clean: true, // 先清除打包的目录.
+    clean: true, // 先清除打包的目录
   },
 ```
 
 配置好 tsup 后在对应包 package.json 配置好路径, 例如 shared 包配置.
 
 ```json
- "main": "./dist/index.js",
+  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "unpkg": "./dist/index.global.js",
   "types": "./dist/index.d.ts",
@@ -231,4 +211,4 @@ tsup.config 配置:
   },
 ```
 
-### [具体见发布 npm 包流程](#发布-npm-包流程)
+后续内容待更新....

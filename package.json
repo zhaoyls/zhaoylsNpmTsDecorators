@@ -41,21 +41,21 @@
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "eslint-scope": "^7.2.2",
+    "eslint-visitor-keys": "^3.4.3",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
+    "prettier-linter-helpers": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
     "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
-    "vitepress": "1.0.0-rc.20",
-    "vitest": "^0.34.6"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "eslint-scope": "^7.2.2",
-    "prettier-linter-helpers": "^1.0.0",
-    "eslint-visitor-keys": "^3.4.3"
+    "vitepress": "1.0.0-rc.20",
+    "vitest": "^0.34.6"
   },
   "repository": {
     "type": "git",
